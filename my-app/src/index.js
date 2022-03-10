@@ -179,6 +179,9 @@ function Square(props){
     if(winner){
       status = 'Winner: ' + current.squares[winner[0]];
     }
+    else if(history.length == 10){
+      status = 'Draw: Cats game';
+    }
     else{
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
