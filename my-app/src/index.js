@@ -83,6 +83,7 @@ function Square(props){
         }],
         xIsNext: true,
         stepNumber: 0,
+        order: true,
       }
     }
     handleClick(i){
@@ -107,12 +108,21 @@ function Square(props){
         xIsNext: (step % 2) == 0,
       })
     }
+    move_order(){
+      this.setState({
+        order: !this.state.order ? true : false,
+      });
+    }
     render() {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
+      const order = this.state.order ? "Ascending order" : "Descending order";
       const moves = history.map((step,move) => {
       let pos = 0;
+      if(!this.state.order){
+        move = Math.abs(move - history.length + 1);
+      }
       if(move > 0){
         for(let i = 0; i < 9; i++){
           if(history[move].squares[i] != history[move - 1].squares[i]){
@@ -161,6 +171,7 @@ function Square(props){
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <button className='Order of buttons' onClick={() => this.move_order()}>{order}</button>
           <ol>{moves}</ol>
         </div>
       </div>
